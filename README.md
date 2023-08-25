@@ -5,6 +5,9 @@ to determine propabilities of plagarism accross student submissions.
 
 ## Installation
 
+You can grab the latest binary [release](https://github.com/chriswifn/rk/releases).
+This rk command can be installed as a standalone program or composed into a Bonzai command tree.
+
 Standalone
 ```
 go install github.com/chriswifn/rk/cmd/rk@latest
