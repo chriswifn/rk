@@ -26,7 +26,7 @@ var Cmd = &Z.Cmd{
 	Name:        `rk`,
 	Aliases:     []string{},
 	Copyright:   `Copyright 2023 Christian Hageloch`,
-	Version:     `v0.1.0`,
+	Version:     `v0.1.1`,
 	License:     `MIT`,
 	Source:      `git@github.com:chriswifn/rk.git`,
 	Issues:      `github.com/chriswifn/rk/issues`,
