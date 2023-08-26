@@ -1,6 +1,7 @@
 package rk
 
 import (
+	"bufio"
 	_ "embed"
 	"fmt"
 	Z "github.com/rwxrob/bonzai/z"
@@ -29,7 +30,7 @@ var Cmd = &Z.Cmd{
 	License:     `MIT`,
 	Source:      `git@github.com:chriswifn/rk.git`,
 	Issues:      `github.com/chriswifn/rk/issues`,
-	Commands:    []*Z.Cmd{compareCmd, help.Cmd, vars.Cmd, conf.Cmd, initCmd},
+	Commands:    []*Z.Cmd{compareCmd, help.Cmd, vars.Cmd, conf.Cmd, initCmd, filterCmd},
 	Summary:     help.S(_rk),
 	Description: help.D(_rk),
 }
@@ -71,7 +72,39 @@ var compareCmd = &Z.Cmd{
 					files[i],
 					files[j],
 				)
-				// fmt.Printf("[%s-%s]\nPropability: %f\n", files[i], files[j], checker.GetRate())
+				fmt.Printf("%s,%s,%f\n", files[i], files[j], checker.GetRate())
+			}
+		}
+		return nil
+	},
+}
+
+var filterCmd = &Z.Cmd{
+	Name:        `filter`,
+	Commands:    []*Z.Cmd{help.Cmd},
+	Summary:     help.S(_filter),
+	Description: help.D(_filter),
+	Call: func(x *Z.Cmd, _ ...string) error {
+		var files []string
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			path := scanner.Text()
+			fileInfo, err := os.Stat(path)
+			if err != nil {
+				return err
+			}
+			if fileInfo.IsDir() {
+				continue
+			} else {
+				files = append(files, path)
+			}
+		}
+		for i := 0; i < len(files)-1; i++ {
+			for j := i + 1; j < len(files); j++ {
+				checker := NewPlagarismChecker(
+					files[i],
+					files[j],
+				)
 				fmt.Printf("%s,%s,%f\n", files[i], files[j], checker.GetRate())
 			}
 		}

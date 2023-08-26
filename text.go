@@ -10,3 +10,6 @@ var _init string
 
 //go:embed text/en/rk.md
 var _rk string
+
+//go:embed text/en/filter.md
+var _filter string
