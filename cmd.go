@@ -26,7 +26,7 @@ var Cmd = &Z.Cmd{
 	Name:        `rk`,
 	Aliases:     []string{},
 	Copyright:   `Copyright 2023 Christian Hageloch`,
-	Version:     `v0.1.1`,
+	Version:     `v0.1.2`,
 	License:     `MIT`,
 	Source:      `git@github.com:chriswifn/rk.git`,
 	Issues:      `github.com/chriswifn/rk/issues`,
@@ -36,8 +36,10 @@ var Cmd = &Z.Cmd{
 }
 
 var initCmd = &Z.Cmd{
-	Name:     `init`,
-	Commands: []*Z.Cmd{help.Cmd},
+	Name:        `init`,
+	Commands:    []*Z.Cmd{help.Cmd},
+	Summary:     help.S(_init),
+	Description: help.D(_init),
 	Call: func(x *Z.Cmd, _ ...string) error {
 		val, _ := x.Caller.C(`comment`)
 		if val == "null" {
